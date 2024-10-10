@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Limit Function Quest</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #292929;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      input {
+        padding: 10px;
+        margin-top: 10px;
+        width: 80%;
+      }
+
+      button {
+        padding: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Limit Function Quest</h1>
+      <p id="function"></p>
+      <input type="number" id="answer" placeholder="Masukkan jawabanmu" />
+      <button id="check-btn">Cek Jawaban</button>
+      <p id="result"></p>
+    </div>
+    <script>
+      const functions = [
+        { expression: '(x^2 + 2x) / (x + 2)', limit: 4 },
+        { expression: 'sin(x) / x', limit: 1 },
+        { expression: '(x^2 - 4) / (x - 2)', limit: 4 },
+        { expression: '(3x^3 - 12) / (x - 2)', limit: 12 },
+        { expression: 'tan(x) / x', limit: 1 },
+      ];
+
+      let currentFunctionIndex = 0;
+
+      function displayFunction() {
+        const functionElement = document.getElementById('function');
+        functionElement.innerText = `Apa limit dari ${functions[currentFunctionIndex].expression} saat x mendekati 1?`;
+      }
+
+      document.getElementById('check-btn').addEventListener('click', () => {
+        const answer = parseFloat(document.getElementById('answer').value);
+        const resultElement = document.getElementById('result');
+
+        if (answer === functions[currentFunctionIndex].limit) {
+          resultElement.innerText = 'Benar! Kamu mendapat 1 poin.';
+          currentFunctionIndex++;
+          if (currentFunctionIndex < functions.length) {
+            displayFunction();
+            document.getElementById('answer').value = '';
+          } else {
+            resultElement.innerText += '\nSelamat, kamu telah menyelesaikan semua fungsi!';
+          }
+        } else {
+          resultElement.innerText = `Salah! Limit yang benar adalah ${functions[currentFunctionIndex].limit}.`;
+        }
+      });
+
+      // Tampilkan fungsi pertama saat halaman dimuat
+      window.onload = displayFunction;
+    </script>
+  </body>
+</html>
